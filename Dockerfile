@@ -11,4 +11,4 @@ COPY target/event-registration-servlet-1.0.0.war /usr/local/tomcat/webapps/ROOT.
 EXPOSE 8080
 
 # Start Tomcat
-CMD [catalina.sh,run]
+CMD ["catalina.sh", "run"]
