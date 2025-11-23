@@ -307,7 +307,7 @@
             <div class="card-body">
               <h5 class="card-title">${escapeHtml(evt.title)}</h5>
               <p class="small-muted">
-                ${escapeHtml(evt.location)} • ${new Date(evt.datetime).toLocaleString()}
+                ${escapeHtml(evt.location)} • ${evt.datetime}
               </p>
               <p class="text-truncate">${escapeHtml(evt.description||'')}</p>
               <button class="btn btn-sm btn-outline-primary viewBtn">View</button>
