@@ -432,7 +432,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Class</th>
+                    <th>Remarks</th>
                     <th>Registered At</th>
                 </tr>
                 </thead>
@@ -447,7 +447,7 @@
                         <td><%= r.getName() %></td>
                         <td><%= r.getEmail() %></td>
                         <td><%= r.getPhone() %></td>
-                        <td><%= r.getStudentClass() %></td>
+                        <td><%= r.getRemarks() %></td>
                         <td><%= r.getCreatedAt() %></td>
                     </tr>
                 <%
