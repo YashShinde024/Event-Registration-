@@ -264,8 +264,8 @@
           </div>
 
           <div class="mb-2">
-            <label class="form-label">Class</label>
-            <textarea id="class" class="form-control"></textarea>
+            <label class="form-label">remark</label>
+            <textarea id="remark" class="form-control"></textarea>
           </div>
 
           <button class="btn btn-primary"
@@ -346,7 +346,7 @@
       name: document.getElementById('name').value,
       email: document.getElementById('email').value,
       phone: document.getElementById('phone').value,
-      remarks: document.getElementById('class').value
+      remarks: document.getElementById('remark').value
     };
 
     try {
