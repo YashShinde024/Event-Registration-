@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
-@WebServlet(urlPatterns = {"/events/register"})
+//@WebServlet(urlPatterns = {"/events/register"})
 public class RegisterServlet extends HttpServlet {
 
   private final RegistrationDao regDao = new RegistrationDao();
