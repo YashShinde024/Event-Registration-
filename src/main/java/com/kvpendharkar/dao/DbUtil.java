@@ -41,6 +41,7 @@ public class DbUtil {
         );
       """);
 
+      // CHANGED: remarks -> student_class
       s.executeUpdate("""
         CREATE TABLE IF NOT EXISTS registrations (
           id IDENTITY PRIMARY KEY,
@@ -48,7 +49,7 @@ public class DbUtil {
           name VARCHAR(255),
           email VARCHAR(255),
           phone VARCHAR(100),
-          remarks CLOB,
+          student_class VARCHAR(255),
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
       """);
@@ -62,13 +63,15 @@ public class DbUtil {
       """);
 
       // create default admin if not exists
-      try (PreparedStatement ps = c.prepareStatement("SELECT COUNT(*) FROM admin_users WHERE username = ?")) {
+      try (PreparedStatement ps = c.prepareStatement(
+              "SELECT COUNT(*) FROM admin_users WHERE username = ?")) {
         ps.setString(1, "admin");
         var rs = ps.executeQuery();
         if (rs.next() && rs.getInt(1) == 0) {
-          // Use jBCrypt to hash password
-          String hash = org.mindrot.jbcrypt.BCrypt.hashpw("admin123", org.mindrot.jbcrypt.BCrypt.gensalt());
-          try (PreparedStatement ins = c.prepareStatement("INSERT INTO admin_users (username,password_hash) VALUES (?,?)")) {
+          String hash = org.mindrot.jbcrypt.BCrypt.hashpw(
+              "admin123", org.mindrot.jbcrypt.BCrypt.gensalt());
+          try (PreparedStatement ins = c.prepareStatement(
+                  "INSERT INTO admin_users (username,password_hash) VALUES (?,?)")) {
             ins.setString(1, "admin");
             ins.setString(2, hash);
             ins.executeUpdate();
@@ -77,7 +80,27 @@ public class DbUtil {
         }
       }
 
-      // Insert sample events if none exist - deleted
+      // --- MIGRATION FROM OLD 'remarks' COLUMN TO 'student_class' ---
+      try (Statement mig = c.createStatement()) {
+        // 1) Try to add student_class if DB was created with old schema
+        try {
+          mig.executeUpdate("ALTER TABLE registrations ADD COLUMN student_class VARCHAR(255)");
+        } catch (SQLException ignore) {
+          // column already exists -> ignore
+        }
+
+        // 2) Copy data from remarks -> student_class if both exist
+        try {
+          mig.executeUpdate(
+              "UPDATE registrations " +
+              "SET student_class = remarks " +
+              "WHERE student_class IS NULL AND remarks IS NOT NULL"
+          );
+        } catch (SQLException ignore) {
+          // if old 'remarks' column doesn't exist in this DB, ignore
+        }
+      }
+
 
     } catch (SQLException ex) {
       ex.printStackTrace();
