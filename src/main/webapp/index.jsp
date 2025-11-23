@@ -7,23 +7,57 @@
   <title>KV Pendharkar College – Event Registration</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    :root{--main-orange:#ff7b00;--dark-orange:#e06c00;--light-orange:#ff9f4d;}
-    body{padding-top:70px;background:#fff6ee;}
-    .navbar-orange{background-color:var(--main-orange)!important;}
-    .btn-outline-primary{color:var(--main-orange);border-color:var(--main-orange);}
-    .event-card{cursor:pointer;transition:transform .12s ease;border-left:4px solid var(--light-orange);}
-    .event-card:hover{transform:translateY(-4px);}
-    .small-muted{font-size:.9rem;color:#666;}
-.site-footer {
+  :root{
+    --main-orange:#ff7b00;
+    --dark-orange:#e06c00;
+    --light-orange:#ff9f4d;
+  }
+
+  body{
+    padding-top:70px;
+    background:#fff6ee;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  .navbar-orange{
+    background-color:var(--main-orange)!important;
+  }
+
+  .btn-outline-primary{
+    color:var(--main-orange);
+    border-color:var(--main-orange);
+  }
+
+  .event-card{
+    cursor:pointer;
+    transition:transform .12s ease, box-shadow .12s ease;
+    border-left:4px solid var(--light-orange);
+    box-shadow:0 2px 4px rgba(0,0,0,0.06);
+  }
+
+  .event-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 6px 14px rgba(0,0,0,0.12);
+  }
+
+  .small-muted{
+    font-size:.9rem;
+    color:#666;
+  }
+
+  /* ===== FOOTER BASE ===== */
+  .site-footer {
     background: linear-gradient(135deg, #0f172a, #020617);
     padding: 14px 20px;
     color: #e5e7eb;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     margin-top: 40px;
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.4);
-}
+    position: relative;
+    overflow: hidden;
+    animation: footer-float 3s ease-in-out infinite alternate;
+  }
 
-.footer-content {
+  .footer-content {
     max-width: 1100px;
     margin: 0 auto;
     display: flex;
@@ -31,15 +65,44 @@
     justify-content: space-between;
     gap: 10px;
     flex-wrap: wrap;
-}
+    position: relative;
+    z-index: 2;
+  }
 
-.footer-text {
+  .footer-text {
     font-size: 14px;
     opacity: 0.9;
-}
+  }
 
-/* LinkedIn button style */
-.footer-link {
+  /* glowing animated background wave */
+  .site-footer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      rgba(56,189,248,0.15),
+      rgba(14,165,233,0.05),
+      rgba(56,189,248,0.15)
+    );
+    background-size: 200% 200%;
+    animation: footer-glow 6s ease infinite;
+    z-index: 0;
+  }
+
+  /* Name hover highlight */
+  .footer-text strong {
+    color: #38bdf8;
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+  }
+
+  .footer-text strong:hover {
+    color: #7dd3fc;
+    text-shadow: 0 0 12px rgba(56,189,248,0.6);
+  }
+
+  /* LinkedIn button style */
+  .footer-link {
     position: relative;
     padding: 8px 16px;
     border-radius: 999px;
@@ -51,7 +114,6 @@
     overflow: hidden;
     cursor: pointer;
 
-    /* animation + glow */
     background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), transparent 55%),
                 rgba(15, 23, 42, 0.9);
     color: #e0f2fe;
@@ -61,36 +123,45 @@
     gap: 6px;
 
     transition:
-        transform 0.2s ease-out,
-        box-shadow 0.25s ease-out,
-        border-color 0.25s ease-out,
-        background 0.25s ease-out;
-}
+      transform 0.2s ease-out,
+      box-shadow 0.25s ease-out,
+      border-color 0.25s ease-out,
+      background 0.25s ease-out;
+  }
 
-/* hover effect */
-.footer-link:hover {
+  .footer-link:hover {
     transform: translateY(-1px) scale(1.02);
     box-shadow: 0 0 15px rgba(56, 189, 248, 0.45);
     border-color: #0ea5e9;
     background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.35), transparent 60%),
                 rgba(15, 23, 42, 1);
-}
+  }
 
-/* tiny glowing dot / icon */
-.footer-link::before {
+  /* tiny glowing dot / icon */
+  .footer-link::before {
     content: "●";
     font-size: 10px;
     margin-right: 2px;
     color: #38bdf8;
     animation: footer-pulse 1.4s ease-in-out infinite;
-}
+  }
 
-/* underline animation on text */
-.footer-link-text {
+  /* LinkedIn hover sparkle */
+  .footer-link:hover::after {
+    content: "✨";
+    position: absolute;
+    right: 10px;
+    top: -8px;
+    font-size: 12px;
+    opacity: 0.8;
+  }
+
+  /* underline animation on text */
+  .footer-link-text {
     position: relative;
-}
+  }
 
-.footer-link-text::after {
+  .footer-link-text::after {
     content: "";
     position: absolute;
     left: 0;
@@ -99,29 +170,99 @@
     width: 0;
     background: linear-gradient(90deg, #38bdf8, #0ea5e9);
     transition: width 0.25s ease-out;
-}
+  }
 
-.footer-link:hover .footer-link-text::after {
+  .footer-link:hover .footer-link-text::after {
     width: 100%;
-}
+  }
 
-/* pulse animation */
-@keyframes footer-pulse {
+  /* Animations */
+  @keyframes footer-pulse {
     0% { opacity: 0.4; transform: scale(1); }
     50% { opacity: 1; transform: scale(1.3); }
     100% { opacity: 0.4; transform: scale(1); }
-}
+  }
 
-/* mobile */
-@media (max-width: 600px) {
-    .footer-content {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+  @keyframes footer-glow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes footer-float {
+    from { transform: translateY(0); }
+    to { transform: translateY(-2px); }
+  }
+
+  /* ===== RESPONSIVE / MOBILE TWEAKS ===== */
+  @media (max-width: 768px) {
+    body{
+      padding-top:64px;
     }
-}
 
-  </style>
+    .navbar-brand{
+      font-size: 0.98rem;
+    }
+
+    .event-card .card-body{
+      padding: 0.9rem 1rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    body{
+      padding-top:60px;
+    }
+
+    .container{
+      padding: 0 1rem 1.5rem;
+    }
+
+    .d-flex.justify-content-between.align-items-center.mb-3{
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.5rem;
+    }
+
+    #btn-refresh{
+      width: 100%;
+    }
+
+    .navbar-brand{
+      font-size: 0.9rem;
+    }
+
+    .navbar-brand img{
+      height:32px;
+      margin-right:8px;
+    }
+
+    .event-card .card-body{
+      padding: 0.85rem 0.95rem;
+    }
+
+    .small-muted{
+      font-size: 0.8rem;
+    }
+
+    .footer-content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+    }
+
+    .footer-link{
+      width: 100%;
+      justify-content: center;
+    }
+
+    .site-footer{
+      padding: 16px 14px;
+    }
+  }
+</style>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark navbar-orange fixed-top">
@@ -167,7 +308,7 @@
           <div class="mb-2"><label class="form-label">Full name</label><input id="name" class="form-control" required/></div>
           <div class="mb-2"><label class="form-label">Email</label><input id="email" class="form-control" type="email" required/></div>
           <div class="mb-2"><label class="form-label">Phone</label><input id="phone" class="form-control"/></div>
-          <div class="mb-2"><label class="form-label">Remarks</label><textarea id="remarks" class="form-control"></textarea></div>
+          <div class="mb-2"><label class="form-label">Class</label><textarea id="class" class="form-control"></textarea></div>
           <button class="btn btn-primary" type="submit" style="background:var(--main-orange);border-color:var(--main-orange);">Register</button>
         </form>
       </div>
@@ -224,7 +365,7 @@
       name: document.getElementById('name').value,
       email: document.getElementById('email').value,
       phone: document.getElementById('phone').value,
-      remarks: document.getElementById('remarks').value
+      remarks: document.getElementById('class').value
     };
     try {
       const res = await fetch(baseUrl + '/events/register', {
@@ -248,14 +389,6 @@
   document.getElementById('btn-refresh').addEventListener('click', fetchEvents);
   fetchEvents();
 </script>
-<footer style="text-align:center; padding:15px 0; background:#f1f1f1; margin-top:30px;">
-    <p style="margin:0; font-size:14px;">
-        © 2025 Created by <strong>Yash Shinde</strong> |
-        <a href="https://www.linkedin.com/in/yash-shinde-393159309" target="_blank" style="text-decoration:none; color:#0077b5;">
-            LinkedIn
-        </a>
-    </p>
-</footer>
 <footer class="site-footer">
     <div class="footer-content">
         <span class="footer-text">
