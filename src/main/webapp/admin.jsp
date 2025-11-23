@@ -26,9 +26,22 @@
             --light-orange:#ff9f4d;
         }
 
+        /* === LAYOUT FOR STICKY FOOTER === */
+        html, body {
+            height: 100%;
+        }
+
         body{
+            margin:0;
             background:#fff6ee;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            display:flex;
+            flex-direction:column;
+            min-height:100vh;
+        }
+
+        main{
+            flex:1;
         }
 
         /* NAVBAR */
@@ -45,6 +58,16 @@
         .navbar-admin .navbar-brand{
             font-weight:700;
             letter-spacing:0.3px;
+            display:flex;
+            align-items:center;
+        }
+
+        .navbar-admin .navbar-brand img{
+            height:40px;
+            margin-right:10px;
+            border-radius:6px;
+            background:#fff;
+            padding:2px;
         }
 
         .navbar-admin .info-text{
@@ -124,6 +147,7 @@
             position: relative;
             overflow: hidden;
             animation: footer-float 3s ease-in-out infinite alternate;
+            width:100%;
         }
 
         .footer-content {
@@ -257,6 +281,10 @@
                 font-size:0.95rem;
             }
 
+            .navbar-admin .navbar-brand img{
+                height:34px;
+            }
+
             .navbar-admin .info-text{
                 font-size:0.78rem;
             }
@@ -332,6 +360,7 @@
 <nav class="navbar navbar-admin px-4">
     <div class="brand-wrapper">
         <a class="navbar-brand" href="<%=request.getContextPath()%>/admin">
+            <img src="<%=request.getContextPath()%>/assets/logo.jpg" alt="logo">
             KV Pendharkar – Admin
         </a>
     </div>
@@ -345,6 +374,7 @@
     </div>
 </nav>
 
+<main>
 <div class="container mt-4 mb-4">
     <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
         <h3 class="page-heading mb-0">Dashboard</h3>
@@ -402,7 +432,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Remarks</th>
+                    <th>Class</th>
                     <th>Registered At</th>
                 </tr>
                 </thead>
@@ -417,7 +447,7 @@
                         <td><%= r.getName() %></td>
                         <td><%= r.getEmail() %></td>
                         <td><%= r.getPhone() %></td>
-                        <td><%= r.getRemarks() %></td>
+                        <td><%= r.getStudentClass() %></td>
                         <td><%= r.getCreatedAt() %></td>
                     </tr>
                 <%
@@ -430,6 +460,7 @@
         }
     %>
 </div>
+</main>
 
 <footer class="site-footer">
     <div class="footer-content">
