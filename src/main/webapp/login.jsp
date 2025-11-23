@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -14,14 +14,32 @@
       --light-orange:#ff9f4d;
     }
 
+    /* === LAYOUT FOR STICKY FOOTER === */
+    html, body {
+      height: 100%;
+    }
+
     body{
+      margin:0;
       background:#fff6ee;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+    }
+
+    main{
+      flex:1;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
     }
 
     .login-wrapper{
       max-width:420px;
+      width:100%;
       margin:120px auto 40px;
+      padding:0 1rem;
     }
 
     .login-card{
@@ -77,6 +95,33 @@
       text-decoration:underline;
     }
 
+    /* Logo above login */
+    .login-logo{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:1rem;
+    }
+
+    .login-logo img{
+      height:60px;
+      width:auto;
+      border-radius:8px;
+      margin-bottom:0.5rem;
+      background:#fff;
+      padding:3px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .login-logo span{
+      font-size:0.85rem;
+      font-weight:600;
+      color:#374151;
+      text-transform:uppercase;
+      letter-spacing:0.06em;
+    }
+
     /* ===== FOOTER ===== */
     .site-footer {
       background: linear-gradient(135deg, #0f172a, #020617);
@@ -87,6 +132,7 @@
       position: relative;
       overflow: hidden;
       animation: footer-float 3s ease-in-out infinite alternate;
+      width:100%;
     }
 
     .footer-content {
@@ -219,6 +265,10 @@
     }
 
     @media (max-width: 576px){
+      main{
+        align-items:flex-start;
+      }
+
       .login-wrapper{
         margin-top:70px;
         padding:0 1rem;
@@ -248,41 +298,49 @@
 </head>
 <body>
 
-  <div class="login-wrapper">
-    <div class="text-center mb-3">
-      <a href="<%= request.getContextPath() %>/" class="back-link">
-        ← Back to Events
-      </a>
+  <main>
+    <div class="login-wrapper">
+      <div class="text-center mb-3">
+        <a href="<%= request.getContextPath() %>/" class="back-link">
+          ← Back to Events
+        </a>
+      </div>
+
+      <!-- Logo block -->
+      <div class="login-logo">
+        <img src="<%= request.getContextPath() %>/assets/logo.jpg" alt="KV Pendharkar logo">
+        <span>K.V. Pendharkar College – Admin</span>
+      </div>
+
+      <div class="card p-4 shadow-sm login-card">
+        <h4 class="mb-1 login-title">Admin Login</h4>
+        <p class="login-subtitle mb-3">Only authorized staff can access this panel.</p>
+
+        <form method="post" action="<%= request.getContextPath() %>/admin/login">
+          <div class="mb-2">
+            <label class="form-label">Username</label>
+            <input name="username" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input name="password" type="password" class="form-control" required>
+          </div>
+
+          <%
+            String err = (String) request.getAttribute("error");
+            if (err != null) {
+          %>
+          <div class="text-danger mb-3"><%= err %></div>
+          <%
+            }
+          %>
+
+          <button class="btn btn-login" type="submit">Login</button>
+        </form>
+      </div>
     </div>
-
-    <div class="card p-4 shadow-sm login-card">
-      <h4 class="mb-1 login-title">Admin Login</h4>
-      <p class="login-subtitle mb-3">Only authorized staff can access this panel.</p>
-
-      <form method="post" action="<%= request.getContextPath() %>/admin/login">
-        <div class="mb-2">
-          <label class="form-label">Username</label>
-          <input name="username" class="form-control" required>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Password</label>
-          <input name="password" type="password" class="form-control" required>
-        </div>
-
-        <%
-          String err = (String) request.getAttribute("error");
-          if (err != null) {
-        %>
-        <div class="text-danger mb-3"><%= err %></div>
-        <%
-          }
-        %>
-
-        <button class="btn btn-login" type="submit">Login</button>
-      </form>
-    </div>
-  </div>
+  </main>
 
   <footer class="site-footer">
     <div class="footer-content">
