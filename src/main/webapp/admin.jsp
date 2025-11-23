@@ -137,139 +137,97 @@
             background:var(--dark-orange);
         }
 
-        /* ===== FOOTER ===== */
-        .site-footer {
-            background: linear-gradient(135deg, #0f172a, #020617);
-            padding: 14px 20px;
-            color: #e5e7eb;
-            margin-top: 40px;
-            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-            animation: footer-float 3s ease-in-out infinite alternate;
-            width:100%;
-        }
+        /* ===== UPDATED ORANGE THEME FOOTER ===== */
+.site-footer {
+    background: linear-gradient(135deg, #ff7b00, #e06c00);
+    padding: 16px 20px;
+    color: #fff;
+    margin-top: 40px;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+}
 
-        .footer-content {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 2;
-        }
+/* subtle animated shine */
+.site-footer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        120deg,
+        rgba(255,255,255,0.15),
+        rgba(255,255,255,0.05),
+        rgba(255,255,255,0.15)
+    );
+    background-size: 200% 200%;
+    animation: footer-shine 6s ease infinite;
+}
 
-        .footer-text {
-            font-size: 14px;
-            opacity: 0.9;
-        }
+.footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: relative;
+    z-index: 2;
+}
 
-        .site-footer::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-              120deg,
-              rgba(56,189,248,0.15),
-              rgba(14,165,233,0.05),
-              rgba(56,189,248,0.15)
-            );
-            background-size: 200% 200%;
-            animation: footer-glow 6s ease infinite;
-            z-index: 0;
-        }
+.footer-text {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.95;
+}
 
-        .footer-text strong {
-            color: #38bdf8;
-            transition: text-shadow 0.3s ease, color 0.3s ease;
-        }
+/* Name highlight */
+.footer-text strong {
+    color: #fff;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
 
-        .footer-text strong:hover {
-            color: #7dd3fc;
-            text-shadow: 0 0 12px rgba(56,189,248,0.6);
-        }
+/* LinkedIn button – white + orange hover */
+.footer-link {
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    background: #ffffff;
+    color: #e06c00;
+    padding: 8px 18px;
+    border-radius: 999px;
+    transition: all 0.25s ease;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
 
-        .footer-link {
-            position: relative;
-            padding: 8px 16px;
-            border-radius: 999px;
-            border: 1px solid #38bdf8;
-            text-decoration: none;
-            font-size: 13px;
-            letter-spacing: 0.3px;
-            text-transform: uppercase;
-            overflow: hidden;
-            cursor: pointer;
+.footer-link:hover {
+    background: #fff3e6;
+    color: #ff7b00;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
 
-            background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.25), transparent 55%),
-                        rgba(15, 23, 42, 0.9);
-            color: #e0f2fe;
+@keyframes footer-shine {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+/* Mobile friendly */
+@media (max-width: 600px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 10px;
+    }
 
-            transition:
-              transform 0.2s ease-out,
-              box-shadow 0.25s ease-out,
-              border-color 0.25s ease-out,
-              background 0.25s ease-out;
-        }
-
-        .footer-link:hover {
-            transform: translateY(-1px) scale(1.02);
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.45);
-            border-color: #0ea5e9;
-            background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.35), transparent 60%),
-                        rgba(15, 23, 42, 1);
-        }
-
-        .footer-link::before {
-            content: "●";
-            font-size: 10px;
-            margin-right: 2px;
-            color: #38bdf8;
-            animation: footer-pulse 1.4s ease-in-out infinite;
-        }
-
-        .footer-link-text {
-            position: relative;
-        }
-
-        .footer-link-text::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -2px;
-            height: 2px;
-            width: 0;
-            background: linear-gradient(90deg, #38bdf8, #0ea5e9);
-            transition: width 0.25s ease-out;
-        }
-
-        .footer-link:hover .footer-link-text::after {
-            width: 100%;
-        }
-
-        @keyframes footer-pulse {
-            0% { opacity: 0.4; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.3); }
-            100% { opacity: 0.4; transform: scale(1); }
-        }
-
-        @keyframes footer-glow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes footer-float {
-            from { transform: translateY(0); }
-            to { transform: translateY(-2px); }
-        }
+    .footer-link {
+        width: 100%;
+        text-align: center;
+    }
+}
 
         /* ===== RESPONSIVE / MOBILE ===== */
         @media (max-width: 768px){
@@ -477,3 +435,4 @@
 
 </body>
 </html>
+
